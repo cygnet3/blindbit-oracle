@@ -490,7 +490,7 @@ func sumPublicKeys(pubKeys []string) (*btcec.PublicKey, error) {
 			lastPubKey, err = btcec.ParsePubKey(decodeString)
 			if err != nil {
 				common.ErrorLogger.Println(err)
-				panic(err)
+				// panic(err)
 				return nil, err
 			}
 		}
