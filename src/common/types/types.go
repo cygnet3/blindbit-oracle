@@ -115,3 +115,9 @@ type RPCResponseSendRawTransaction struct {
 	Result string      `json:"result,omitempty"`
 	Error  interface{} `json:"error,omitempty"`
 }
+
+type RPCResponseGenerateToAddress struct {
+	ID     string      `json:"id"`
+	Result []string    `json:"result,omitempty"`
+	Error  interface{} `json:"error,omitempty"`
+}

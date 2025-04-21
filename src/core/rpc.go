@@ -224,3 +224,27 @@ func PostRawTransaction(hex string) (*string, error) {
 
 	return &rpcResponse.Result, nil
 }
+
+func GenerateToAddress() error {
+	rpcData := types.RPCRequest{
+		JSONRPC: "1.0",
+		ID:      "blindbit-silent-payment-backend-v0",
+		Method:  "generatetoaddress",
+		Params:  []interface{}{1, "bcrt1qdnwtmyvxmjllznfqr3udye8syt02ks8t2sawv0"},
+	}
+
+	var rpcResponse types.RPCResponseGenerateToAddress
+
+	err := makeRPCRequest(rpcData, &rpcResponse)
+	if err != nil {
+		common.ErrorLogger.Printf("%v\n", err)
+		return err
+	}
+
+	if rpcResponse.Error != nil {
+		common.ErrorLogger.Printf("RPC Error: %v\n", rpcResponse.Error)
+		return fmt.Errorf("RPC Error: %v", rpcResponse.Error)
+	}
+
+	return nil
+}

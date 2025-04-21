@@ -364,7 +364,15 @@ func (h *ApiHandler) ForwardRawTX(c *gin.Context) {
 }
 
 func forwardTxToNode(txHex string) (*string, error) {
-	return core.PostRawTransaction(txHex)
+	res, err := core.PostRawTransaction(txHex)
+	if err == nil && common.Chain == common.Regtest {
+		gen_err := core.GenerateToAddress()
+		if gen_err != nil {
+			common.ErrorLogger.Printf("Failed to generate block: %s\n", gen_err)
+		}
+	}
+
+	return res, err
 }
 
 func forwardTxToMemPool(txHex string) error {
